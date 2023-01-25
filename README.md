@@ -7,9 +7,12 @@ I made a shitty clock (first micropython project, have mercy on me.)
 Alerts can be added by using an if statement in the Alerts() function as exampled in the following:
 
   def Alerts():
+  
   if TimeParse()[0] == 0 and TimeParse()[1] == 0 and TimeParse()[2] <=1:
-    AlertMessage()
-    lcd.putstr("Test")
+  
+  AlertMessage()
+  
+  lcd.putstr("Test")
 
 The above if statement has 3 parameters, but is capable of date specific parameters also. 
 
