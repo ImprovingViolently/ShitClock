@@ -8,7 +8,9 @@ Alerts can be added by using an if statement in the Alerts() function as example
 
 > def Alerts():  
 > if TimeParse()[0] == 0 and TimeParse()[1] == 0 and TimeParse()[2] <=1:
+>   
 >   AlertMessage()
+>   
 >   lcd.putstr("Test")
   
 The above if statement has 3 parameters, but is capable of date specific parameters also. 
