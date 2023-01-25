@@ -34,9 +34,9 @@ State = 0
 def Boot():
     lcd.clear()
     lcd.move_to(0,0)
-    lcd.putstr("  mWatchOS 0.2  ")
+    lcd.putstr("  mWatchOS 0.1  ")
     lcd.move_to(0,1)
-    lcd.putstr("(C) MSG 24/1/22")
+    lcd.putstr("(C) MSG 24/1/23")
     sleep(3)
 
 #Main loop; displays time and periodically flashes the date
@@ -52,7 +52,7 @@ def Main():
                 lcd.move_to(0,1)
                 lcd.putstr("                ")
         Date()
-        for i in range(59):
+        for i in range(29):
             lcd.move_to(1,1)
             lcd.putstr(str(DateParse()))
             Alerts()
@@ -62,7 +62,7 @@ def Main():
 def Alerts():
     if TimeParse()[0] == 0 and TimeParse()[1] == 0 and TimeParse()[2] <= 1:
         AlertMessage()
-        lcd.putstr("DefaultAlertMesg")
+        lcd.putstr("Test")
         sleep(10)
         Main()
 
@@ -104,9 +104,4 @@ def DateParse():
     return clock_tuple
 
 Boot()
-Time()
-lcd.putstr(str(TimeParse()))
-sleep(1)
-Date()
-lcd.putstr(str(DateParse()))
 Main()
