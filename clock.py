@@ -6,8 +6,10 @@
 
 #Imports
 
+import urequests
 import utime
 import time
+import network
 
 from time import sleep, time
 from machine import I2C, Pin
@@ -34,9 +36,9 @@ State = 0
 def Boot():
     lcd.clear()
     lcd.move_to(0,0)
-    lcd.putstr("  mWatchOS 0.1  ")
+    lcd.putstr("  mWatchOS 0.3  ")
     lcd.move_to(0,1)
-    lcd.putstr("(C) MSG 24/1/23")
+    lcd.putstr("(C) MSG 31/1/23")
     sleep(3)
 
 #Main loop; displays time and periodically flashes the date
@@ -57,10 +59,31 @@ def Main():
             lcd.putstr(str(DateParse()))
             Alerts()
 
+#Sequence; runs once on boot, used for debugging.
+
+def Sequence():
+    Connect()
+    print("db1 Connect Success")
+    TestQuery()
+    print("db2 Test Success")
+    Boot()
+    print("db3 Boot Success")
+    Main()
+
+#Establishes internet connection
+    
+def Connect():
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+
+    ssid      = ''
+    password  = ''
+    wlan.connect(ssid, password)
+
 #Alerts are checked once per cycle
         
 def Alerts():
-    if TimeParse()[0] == 0 and TimeParse()[1] == 0 and TimeParse()[2] <= 1:
+    if TimeParse()[0] == 14 and TimeParse()[1] == 20 and TimeParse()[2] <= 1:
         AlertMessage()
         lcd.putstr("Test")
         sleep(10)
@@ -103,5 +126,9 @@ def DateParse():
     clock_tuple = tuple(clock_list)
     return clock_tuple
 
-Boot()
-Main()
+def TestQuery():
+    r = urequests.get("https://www.google.com")
+    print(r.content)
+    r.close()
+
+Sequence()
