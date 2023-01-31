@@ -79,8 +79,8 @@ def Connect():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
-    ssid      = 'TelstraA5357B'
-    password  = 'bkbuf78bxd'
+    ssid      = ''
+    password  = ''
     wlan.connect(ssid, password)
 
 #Alerts are checked once per cycle
