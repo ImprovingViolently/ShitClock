@@ -10,11 +10,14 @@ import urequests
 import utime
 import time
 import network
+import _thread
 
 from time import sleep, time
 from machine import I2C, Pin
 from lcd_api import LcdApi
 from pico_i2c_lcd import I2cLcd
+
+from SCDebug import *
 
 #I2C Variables
 
@@ -38,7 +41,7 @@ def Boot():
     lcd.move_to(0,0)
     lcd.putstr("  mWatchOS 0.3  ")
     lcd.move_to(0,1)
-    lcd.putstr("(C) MSG 31/1/23")
+    lcd.putstr("(C) MDRT 31/1/23")
     sleep(3)
 
 #Main loop; displays time and periodically flashes the date
@@ -64,20 +67,20 @@ def Main():
 def Sequence():
     Connect()
     print("db1 Connect Success")
+    _thread.start_new_thread(MultithreadedTest, ())
     TestQuery()
-    print("db2 Test Success")
     Boot()
-    print("db3 Boot Success")
+    print("db4 Boot Success")
     Main()
 
 #Establishes internet connection
-    
+
 def Connect():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
-    ssid      = ''
-    password  = ''
+    ssid      = 'TelstraA5357B'
+    password  = 'bkbuf78bxd'
     wlan.connect(ssid, password)
 
 #Alerts are checked once per cycle
@@ -109,7 +112,7 @@ def Date():
 #Parses from sus tuple format to readable not sus format
 
 def TimeParse():
-    raw_tuple = utime.localtime(time())
+    raw_tuple = utime.localtime(utime.time())
     clock_list = list(raw_tuple)
     indices=[0,1,2,6,7]
     for i in sorted(indices, reverse=True):
@@ -125,10 +128,5 @@ def DateParse():
         del clock_list[i]
     clock_tuple = tuple(clock_list)
     return clock_tuple
-
-def TestQuery():
-    r = urequests.get("https://www.google.com")
-    print(r.content)
-    r.close()
 
 Sequence()
