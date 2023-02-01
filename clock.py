@@ -17,7 +17,7 @@ from machine import I2C, Pin
 from lcd_api import LcdApi
 from pico_i2c_lcd import I2cLcd
 
-from SCDebug import *
+#from SCDebug import *
 
 #I2C Variables
 
@@ -41,7 +41,7 @@ def Boot():
     lcd.move_to(0,0)
     lcd.putstr("  mWatchOS 0.3  ")
     lcd.move_to(0,1)
-    lcd.putstr("(C) MDRT 31/1/23")
+    lcd.putstr("(C) MSG 31/1/23")
     sleep(3)
 
 #Main loop; displays time and periodically flashes the date
@@ -67,8 +67,8 @@ def Main():
 def Sequence():
     Connect()
     print("db1 Connect Success")
-    _thread.start_new_thread(MultithreadedTest, ())
-    TestQuery()
+    #_thread.start_new_thread(MultithreadedTest, ())
+    #TestQuery()
     Boot()
     print("db4 Boot Success")
     Main()
@@ -121,7 +121,7 @@ def TimeParse():
     return clock_tuple
 
 def DateParse():
-    raw_tuple = utime.localtime(time())
+    raw_tuple = utime.localtime(utime.time())
     clock_list = list(raw_tuple)
     indices=[3,4,5,6,7]
     for i in sorted(indices, reverse=True):
