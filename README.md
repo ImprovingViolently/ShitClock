@@ -46,7 +46,12 @@ When changing the default pins to the ones used in your implementation, ShitCloc
 
 1. Download clock.py.
 2. Open clock.py in Thonny and download onto the Pi Pico.
-3. Run clock.py 
+3. Run clock.py.
+
+If you intent on modding the watch, i have provided the ShitClockDebug module (SCDebug.py) for a few debug functions. To install the SCDebug module, see below.
+
+1. Download and install SCDebug.py as you would with mWatchOS.
+2. Remove the comments within clock.py.
 
 # Assembly Instructions
 
